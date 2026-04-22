@@ -1,3 +1,14 @@
+<h1 id="HyperSeg-DG">HyperSeg-DG: Multi-Scale Hyper Feature Context for Domain Generalized Medical image Segmentation</h1>
+
+<p align="center">
+  <!-- Adjust width as needed (e.g., 800–1100) -->
+  <img src="images/HyperSeg-DG.jpg" alt="Model Architecture" width="900">
+</p>
+<p align="center"><em>Figure 1. The proposed HyperSeg-DG framework for segmentation and domain generalization.</em></p>
+
+
+
+
 # HyperSeg-DG
 ## 🏗️ Model Architecture
 
