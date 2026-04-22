@@ -12,28 +12,32 @@
   <li>numpy==2.0.2</li>
   <li>pandas==2.2.3</li>
   <li>torch==2.6.0</li>
+  <li>torchvision==0.10.0</li>
+  <li>causal-conv1d=1.0.0</li>
+  <li>mamba-ssm=1.0.0</li>
+  <li>timm=0.6.12</li>
+  <li>einops=0.6.1</li>  
 </ul>
 
 <h2 id="clone-repository">Clone Repository</h2>
-<pre><code>git clone https://github.com/khanonuvov/KANPM-DTA.git
-cd KANPM-DTA
+<pre><code>git clone https://github.com/Pollob001/HyperSeg-DG.git
+cd HyperSeg-DG
 </code></pre>
 
 <h2 id="Generate Pretrained Models">Generate Pretrained Models</h2>
-<p>For each dataset (<code>davis</code>, <code>kiba</code>, <code>metz</code>, <code>bindingdb</code>, <code>Lung Cancer Test</code>) run these three commands or download the pretrained models from <a href="https://www.kaggle.com/datasets/khanonuvov/kanpm-dta-pretrained-models"><code>here</code></a>.</p>
+<p>Download the pretrained models from <a href="add_link_kaggle"><code>here</code></a>.</p>
 
-<pre><code>python pretrained/chemberta_pretraiend.py</code></pre>
-<pre><code>python pretrained/esmC_pretraiend.py</code></pre>
-<pre><code>python pretrained/esm2_map.py</code></pre>
+<h2 id="Generate Backbone">Generate Backbone</h2>
+<pre><code>python backbobe/train.py</code></pre>
 
-<h2 id="Generate Warm & Cold-start Datasets">Generate Cold-start Datasets</h2>
-<pre><code>python code/cold_split.py</code></pre>
+<h2 id="stage-1">Stage-I</h2>
+<pre><code>python train_stage1.py</code></pre>
 
-<h2 id="Train the Model">Train the Model</h2>
-<pre><code>python code/train.py</code></pre>
+<h2 id="stage-2">Stage-II</h2>
+<pre><code>python train.py</code></pre>
 
-<h2 id="Prediction">Prediction</h2>
-<pre><code>python code/pred.py</code></pre>
+<h2 id="test">Test</h2>
+<pre><code>python test.py</code></pre>
 
 <h2 id="contact">Contact</h2>
 <p>
