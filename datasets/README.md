@@ -76,7 +76,7 @@
       <td colspan="5" style="border: 1px solid #ddd; padding: 8px; text-align: center; font-weight: bold;">Generalization</td>
     </tr>
     <tr>
-      <td style="border: 1px solid #ddd; padding: 8px;" rowspan="4"><a href="https://drive.google.com/file/d/1p33nsWQaiZMAgsruDoJLyatoq5XAH-TH/view">DGFundus</a></td>
+      <td style="border: 1px solid #ddd; padding: 8px;" rowspan="5"><a href="https://drive.google.com/file/d/1p33nsWQaiZMAgsruDoJLyatoq5XAH-TH/view">DGFundus</a></td>
       <td style="border: 1px solid #ddd; padding: 8px;">Fundus</td>
       <td style="border: 1px solid #ddd; padding: 8px;">Eye</td>
       <td style="border: 1px solid #ddd; padding: 8px;">Optic Cup/Disc</td>
@@ -107,7 +107,7 @@
       <td style="border: 1px solid #ddd; padding: 8px;">-</td>
     </tr>
     <tr>
-      <td style="border: 1px solid #ddd; padding: 8px;" rowspan="6"><a href="https://drive.google.com/file/d/1sx2FpNySQNjU6_zBa4DPnb9RAmesN0P6/view">DGProstate</a></td>
+      <td style="border: 1px solid #ddd; padding: 8px;" rowspan="7"><a href="https://drive.google.com/file/d/1sx2FpNySQNjU6_zBa4DPnb9RAmesN0P6/view">DGProstate</a></td>
       <td style="border: 1px solid #ddd; padding: 8px;">T2-weighted MRI</td>
       <td style="border: 1px solid #ddd; padding: 8px;">Prostate</td>
       <td style="border: 1px solid #ddd; padding: 8px;">Cancer</td>
@@ -151,6 +151,8 @@
     </tr>
   </tbody>
 </table>
+
+
 <h2 id="domain-generalization">Domain Generalization Datasets</h2>
 
 <h3>Fundus Dataset (Provided by DoFE)</h3>
