@@ -244,7 +244,8 @@ data/
 <h3>Kvasir-Sessile</h3>
 <ul>
 <li><strong>Description</strong>: Sessile polyp segmentation</li>
-
+<li><strong>Download</strong>: <a href="https://datasets.simula.no/kvasir-seg/">Kvasir-Sessile Dataset</a></li>
+</ul>
 
 <h2 id="backbone-download">Backbone Pre-training Dataset</h2>
 
@@ -279,5 +280,3 @@ data/
 </pre>
 
 <p><strong>Note</strong>: The dataset is approximately 150GB for training images and 6.5GB for validation images.</p>
-<li><strong>Download</strong>: <a href="https://datasets.simula.no/kvasir-seg/">Kvasir-Sessile Dataset</a></li>
-</ul>
