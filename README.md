@@ -6,6 +6,44 @@
 </p>
 <p align="center"><em>Figure 1. The proposed HyperSeg-DG framework for segmentation and domain generalization.</em></p>
 
+<h2 id="requirements">Requirements</h2>
+<ul>
+  <li>Python 3.9.21</li>
+  <li>numpy==2.0.2</li>
+  <li>pandas==2.2.3</li>
+  <li>torch==2.6.0</li>
+</ul>
+
+<h2 id="clone-repository">Clone Repository</h2>
+<pre><code>git clone https://github.com/khanonuvov/KANPM-DTA.git
+cd KANPM-DTA
+</code></pre>
+
+<h2 id="Generate Pretrained Models">Generate Pretrained Models</h2>
+<p>For each dataset (<code>davis</code>, <code>kiba</code>, <code>metz</code>, <code>bindingdb</code>, <code>Lung Cancer Test</code>) run these three commands or download the pretrained models from <a href="https://www.kaggle.com/datasets/khanonuvov/kanpm-dta-pretrained-models"><code>here</code></a>.</p>
+
+<pre><code>python pretrained/chemberta_pretraiend.py</code></pre>
+<pre><code>python pretrained/esmC_pretraiend.py</code></pre>
+<pre><code>python pretrained/esm2_map.py</code></pre>
+
+<h2 id="Generate Warm & Cold-start Datasets">Generate Cold-start Datasets</h2>
+<pre><code>python code/cold_split.py</code></pre>
+
+<h2 id="Train the Model">Train the Model</h2>
+<pre><code>python code/train.py</code></pre>
+
+<h2 id="Prediction">Prediction</h2>
+<pre><code>python code/pred.py</code></pre>
+
+<h2 id="contact">Contact</h2>
+<p>
+  For inquiries, please contact
+  <strong>Md Aynul Islam</strong> (Email: 
+  <a href="mailto:aynulislam1997@mail.ustc.edu.cn">aynulislam1997@mail.ustc.edu.cn</a>).
+</p>
+
+
+
 
 
 
