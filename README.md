@@ -60,3 +60,14 @@ python train_stage2.py --backbone wmamba_t --stage1_ckpt checkpoints/stage1/wmam
 # Train from scratch (not recommended)
 python train_stage2.py --backbone wmamba_s --batch_size 8 --epochs 80
 
+
+
+## Acknowledgements
+
+This project builds upon the following open-source works:
+
+- **ConDSeg** - https://github.com/Mengqi-Lei/ConDSeg
+- **Dofe** - https://github.com/emma-sjwang/Dofe  
+- **RAM-DSIR** - https://github.com/zzzqzhou/RAM-DSIR
+
+We thank the authors for their valuable contributions.
