@@ -6,7 +6,39 @@
 </p>
 <p align="center"><em>Figure 1. The proposed HyperSeg-DG framework for segmentation and domain generalization.</em></p>
 
+<h2 id="dataset">Dataset Preparation</h2>
 
+<h3 id="ImageNet-1K">ImageNet-1K Dataset (Backbone Pre-training)</h3>
+
+data/
+├── imagenet/
+│   ├── train/
+│   │   ├── n01440764/
+│   │   │   ├── n01440764_10026.JPEG
+│   │   │   └── ...
+│   │   ├── n01443537/
+│   │   └── ... (1000 classes)
+│   └── val/
+│       ├── n01440764/
+│       │   ├── ILSVRC2012_val_00000293.JPEG
+│       │   └── ...
+│       └── ... (1000 classes)
+
+
+
+### Segmentation Dataset (Stage 1 & Stage 2)
+
+data/
+├── dataset_name/
+│   ├── train/
+│   │   ├── images/
+│   │   └── masks/
+│   ├── val/
+│   │   ├── images/
+│   │   └── masks/
+│   └── test/
+│       ├── images/
+│       └── masks/
 
 
 
