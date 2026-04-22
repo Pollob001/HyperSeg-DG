@@ -244,5 +244,40 @@ data/
 <h3>Kvasir-Sessile</h3>
 <ul>
 <li><strong>Description</strong>: Sessile polyp segmentation</li>
+
+
+<h2 id="backbone-download">Backbone Pre-training Dataset</h2>
+
+<h3>ImageNet-1K Dataset</h3>
+
+<p>Download ImageNet-1K dataset for WMamba backbone pre-training:</p>
+
+<p><strong>Download Link</strong>: <a href="https://image-net.org/download.php">ImageNet-1K Official Download</a></p>
+
+<p><strong>Instructions</strong>:</p>
+<ol>
+  <li>Register/login at <a href="https://image-net.org">image-net.org</a></li>
+  <li>Request access for ILSVRC 2012 dataset</li>
+  <li>Download the training and validation images</li>
+  <li>Organize the dataset as shown below</li>
+</ol>
+
+<pre>
+data/
+├── imagenet/
+│   ├── train/
+│   │   ├── n01440764/
+│   │   │   ├── n01440764_10026.JPEG
+│   │   │   └── ...
+│   │   ├── n01443537/
+│   │   └── ... (1000 classes)
+│   └── val/
+│       ├── n01440764/
+│       │   ├── ILSVRC2012_val_00000293.JPEG
+│       │   └── ...
+│       └── ... (1000 classes)
+</pre>
+
+<p><strong>Note</strong>: The dataset is approximately 150GB for training images and 6.5GB for validation images.</p>
 <li><strong>Download</strong>: <a href="https://datasets.simula.no/kvasir-seg/">Kvasir-Sessile Dataset</a></li>
 </ul>
