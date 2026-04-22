@@ -10,6 +10,7 @@
 
 <h3 id="ImageNet-1K">ImageNet-1K Dataset (Backbone Pre-training)</h3>
 
+'''bash
 data/
 ├── imagenet/
 │   ├── train/
