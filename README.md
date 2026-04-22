@@ -9,7 +9,7 @@
 <h2 id="dataset">Dataset Preparation</h2>
 
 <h3 id="ImageNet-1K">ImageNet-1K Dataset (Backbone Pre-training)</h3>
-
+```bash
 data/
 ├── imagenet/
 │ ├── train/
@@ -23,8 +23,9 @@ data/
 │ │ ├── ILSVRC2012_val_00000293.JPEG
 │ │ └── ...
 │ └── ... (1000 classes)
+```
 
-
+```bash
 <h3>Segmentation Dataset (Stage 1 & Stage 2)</h3> 
 data/
 ├── dataset_name/
@@ -37,7 +38,7 @@ data/
 │ └── test/
 │ ├── images/
 │ └── masks/
-
+```
 <h2 id="requirements">Requirements</h2>
 <ul>
   <li>Python 3.9.21</li>
