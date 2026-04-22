@@ -51,9 +51,9 @@ if __name__ == "__main__":
     folder_name = f"{model_name}_{dataset_name}_{val_name}_lr{lr}_{current_time}"
 
     # Directories
-    base_dir = "/gdata/aynulislam/SEGDATASET"
+    base_dir = "./HyperSeg_DG/datasets"
     data_path = os.path.join(base_dir, dataset_name)
-    save_dir = os.path.join("/ghome/aynulislam/HyperSeg_DG/runfilewithoutp", dataset_name, folder_name)
+    save_dir = os.path.join("./HyperSeg_DG/checkpoints", dataset_name, folder_name)
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
 
