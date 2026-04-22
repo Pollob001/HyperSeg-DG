@@ -22,11 +22,6 @@ except Exception:
 
 DropPath.__repr__ = lambda self: f"timm.DropPath({self.drop_prob})"
 
-
-# ===========================
-# Patch embedding / merging
-# ===========================
-
 class PatchEmbed2D(nn.Module):
     """Image to patch embedding (NHWC)."""
     def __init__(self, patch_size=4, in_chans=3, embed_dim=96, norm_layer=None):
@@ -67,16 +62,7 @@ class PatchMerging2D(nn.Module):
         x = self.reduction(x)                            # B,H/2,W/2,2C
         return x
 
-
-# ===========================
-# SS2D core (NHWC)
-# ===========================
-
 class SS2D(nn.Module):
-    """
-    NHWC Mamba-style 2D SSM with 4-direction scanning (row/col + reverses).
-    Designed to run per window or full map.
-    """
     def __init__(self,
                  d_model: int,
                  d_state: int = 16,
@@ -186,9 +172,6 @@ class SS2D(nn.Module):
         raise RuntimeError("No selective_scan backend found. Install 'mamba-ssm' or 'selective_scan'.")
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        x: NHWC (B,H, W, C) — can be a full feature map or a single window.
-        """
         B, H, W, C = x.shape
         xz = self.in_proj(x)
         x, z = xz.chunk(2, dim=-1)
@@ -201,7 +184,7 @@ class SS2D(nn.Module):
         scan = self._scan_backend
         L = H * W
         K = 4
-        # row-major & col-major sequences + reverses
+
         x_hwwh = torch.stack(
             [x.view(B, -1, L), x.transpose(2, 3).contiguous().view(B, -1, L)],
             dim=1
@@ -234,11 +217,6 @@ class SS2D(nn.Module):
             out = self.dropout(out)
         return out
 
-
-# ===========================
-# Window utilities (NHWC)
-# ===========================
-
 def window_partition_nhwc(x: torch.Tensor, window_size: int) -> torch.Tensor:
     B, H, W, C = x.shape
     assert H % window_size == 0 and W % window_size == 0, \
@@ -255,10 +233,6 @@ def window_reverse_nhwc(windows: torch.Tensor, window_size: int, H: int, W: int)
     x = x.permute(0, 1, 3, 2, 4, 5).contiguous().view(B, H, W, C)
     return x
 
-
-# ===========================
-# Blocks (Swin-style)
-# ===========================
 
 class NHWC_MLP(nn.Module):
     def __init__(self, dim, mlp_ratio=4.0, drop=0.0, act_layer=nn.GELU):
@@ -278,10 +252,6 @@ class NHWC_MLP(nn.Module):
 
 
 class WMambaBlock(nn.Module):
-    """
-    LN → (cyclic shift) → window partition → SS2D(in-window) → window reverse → (reverse shift) → +res
-       → LN → MLP → +res
-    """
     def __init__(self, dim, input_resolution: Tuple[int, int], window_size=7, shift_size=0,
                  mlp_ratio=4.0, drop=0.0, drop_path=0.0, norm_layer=nn.LayerNorm,
                  d_state=16, ssm_expand=2.0, ssm_dconv=3,
@@ -325,7 +295,6 @@ class WMambaBlock(nn.Module):
 
 
 class WMambaLayer(nn.Module):
-    """depth × WMambaBlock, then optional PatchMerging2D."""
     def __init__(self, dim, depth, input_resolution: Tuple[int, int], window_size=7,
                  mlp_ratio=4.0, drop=0.0, drop_path=0.0, norm_layer=nn.LayerNorm,
                  downsample=None, d_state=16, ssm_expand=2.0, ssm_dconv=3,
@@ -350,16 +319,7 @@ class WMambaLayer(nn.Module):
             x = self.downsample(x)
         return x
 
-
-# ===========================
-# Full model
-# ===========================
-
 class WMamba(nn.Module):
-    """
-    Window Mamba: Swin hierarchy with Mamba blocks:
-    PatchEmbed (NHWC) -> [Layer (blocks, PatchMerging)] x 4 -> GAP -> FC
-    """
     def __init__(self, img_size=224, patch_size=4, in_chans=3, num_classes=1000,
                  depths=(2, 2, 6, 2), dims=(96, 192, 384, 768), window_size=7,
                  d_state=16, ssm_expand=2.0, ssm_dt_rank="auto",
@@ -421,11 +381,6 @@ class WMamba(nn.Module):
         x = self.head(x)
         return x
 
-
-# ===========================
-# Convenience builders
-# ===========================
-
 def wmamba_t(img_size=224, num_classes=1000, **kwargs) -> WMamba:
     return WMamba(
         img_size=img_size, num_classes=num_classes,
@@ -455,4 +410,4 @@ if __name__ == "__main__":
     with torch.no_grad():
         y = model(x)
     print("Output:", y.shape)
-    print("Model name: WMamba (Window Mamba)")
+    print("Model name: WMamba")
