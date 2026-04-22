@@ -6,89 +6,6 @@
 </p>
 <p align="center"><em>Figure 1. The proposed HyperSeg-DG framework for segmentation and domain generalization.</em></p>
 
-<h2 id="requirements">Requirements</h2>
-<ul>
-  <li>Python 3.9.21</li>
-  <li>numpy==2.0.2</li>
-  <li>pandas==2.2.3</li>
-  <li>torch==2.6.0</li>
-  <li>torchvision==0.10.0</li>
-  <li>causal-conv1d=1.0.0</li>
-  <li>mamba-ssm=1.0.0</li>
-  <li>timm=0.6.12</li>
-  <li>einops=0.6.1</li>  
-</ul>
-
-<h2 id="clone-repository">Clone Repository</h2>
-<pre><code>git clone https://github.com/Pollob001/HyperSeg-DG.git
-cd HyperSeg-DG
-</code></pre>
-
-<h2 id="Generate Pretrained Models">Generate Pretrained Models</h2>
-<p>Download the pretrained models from <a href="add_link_kaggle"><code>here</code></a>.</p>
-
-<h2 id="Generate Backbone">Generate Backbone</h2>
-<pre><code>python backbobe/train.py</code></pre>
-
-<h2 id="stage-1">Stage-I</h2>
-<pre><code>python train_stage1.py</code></pre>
-
-<h2 id="stage-2">Stage-II</h2>
-<pre><code>python train.py</code></pre>
-
-<h2 id="test">Test</h2>
-<pre><code>python test.py</code></pre>
-
-
-<h2 id="Acknowledgements">Acknowledgements</h2>
-<p>
-  This project builds upon the following open-source works:
-  <strong>ConDSeg</strong> - https://github.com/Mengqi-Lei/ConDSeg.
-  <strong>RAM-DSIR</strong> - https://github.com/emma-sjwang/Dofe.
-  <strong>Md Aynul Islam</strong> - https://github.com/zzzqzhou/RAM-DSIR.
-  We thank the authors for their valuable contributions.
-</p>
-
-<h2 id="contact">Contact</h2>
-<p>
-  For inquiries, please contact
-  <strong>Md Aynul Islam</strong> (Email: 
-  <a href="mailto:aynulislam1997@mail.ustc.edu.cn">aynulislam1997@mail.ustc.edu.cn</a>).
-</p>
-
-
-
-
-
-
-
-
-# HyperSeg-DG
-## 🏗️ Model Architecture
-
-### Backbone Options
-- **WMamba-T** (Tiny): Lightweight backbone for resource-constrained scenarios
-- **WMamba-S** (Small): Balanced performance-efficiency trade-off
-- **WMamba-B** (Base): Maximum accuracy for high-end systems
-
-### Training Stages
-1. **Stage 1**: Pre-trains the WMamba backbone with auxiliary heads
-2. **Stage 2**: End-to-end training with HyperSeg-DG component
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-# Create conda environment
-conda create -n hyperseg python=3.8
-conda activate hyperseg
-
-# Install dependencies
-pip install torch>=1.9.0 torchvision
-pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.9.0/index.html
-pip install timm einops yacs
-
-
 
 ## Dataset Preparation
 
@@ -126,28 +43,57 @@ data/
 │       └── masks/
 
 
-# WMamba-Tiny backbone
-python train_stage1.py --backbone wmamba_t --batch_size 16 --epochs 100
+<h2 id="requirements">Requirements</h2>
+<ul>
+  <li>Python 3.9.21</li>
+  <li>numpy==2.0.2</li>
+  <li>pandas==2.2.3</li>
+  <li>torch==2.6.0</li>
+  <li>torchvision==0.10.0</li>
+  <li>causal-conv1d=1.0.0</li>
+  <li>mamba-ssm=1.0.0</li>
+  <li>timm=0.6.12</li>
+  <li>einops=0.6.1</li>  
+</ul>
 
-# WMamba-Small backbone
-python train_stage1.py --backbone wmamba_s --batch_size 12 --epochs 120
+<h2 id="clone-repository">Clone Repository</h2>
+<pre><code>git clone https://github.com/Pollob001/HyperSeg-DG.git
+cd HyperSeg-DG
+</code></pre>
 
-# WMamba-Base backbone
-python train_stage1.py --backbone wmamba_b --batch_size 8 --epochs 150
+<h2 id="Generate Pretrained Models">Generate Pretrained Models</h2>
+<p>Download the pretrained models from <a href="add_link_kaggle"><code>here</code></a>.</p>
+
+<h2 id="Generate Backbone">Generate Backbone</h2>
+- **WMamba-T** (Tiny): Lightweight backbone for resource-constrained scenarios
+- **WMamba-S** (Small): Balanced performance-efficiency trade-off
+- **WMamba-B** (Base): Maximum accuracy for high-end systems
+<pre><code>python backbobe/train.py</code></pre>
+
+<h2 id="stage-1">Stage-I</h2>
+ **Stage 1**: Pre-trains the WMamba backbone with auxiliary heads
+<pre><code>python train_stage1.py</code></pre>
+
+<h2 id="stage-2">Stage-II</h2>
+**Stage 2**: End-to-end training with HyperSeg-DG component
+<pre><code>python train.py</code></pre>
+
+<h2 id="test">Test</h2>
+<pre><code>python test.py</code></pre>
 
 
-# Resume from Stage 1 backbone checkpoint
-python train_stage2.py --backbone wmamba_t --stage1_ckpt checkpoints/stage1/wmamba_t/best_model.pth
+<h2 id="Acknowledgements">Acknowledgements</h2>
+<p>
+  This project builds upon the following open-source works:
+  <strong>ConDSeg</strong> - https://github.com/Mengqi-Lei/ConDSeg,
+  <strong>Dofe</strong> - https://github.com/emma-sjwang/Dofe, and 
+  <strong>RAM-DSIR</strong> - https://github.com/zzzqzhou/RAM-DSIR.
+  We thank the authors for their valuable contributions.
+</p>
 
-# Train from scratch (not recommended)
-python train_stage2.py --backbone wmamba_s --batch_size 8 --epochs 80
-
-# Resume from Stage 1 backbone checkpoint
-python train_stage2.py --backbone wmamba_t --stage1_ckpt checkpoints/stage1/wmamba_t/best_model.pth
-
-# Train from scratch (not recommended)
-python train_stage2.py --backbone wmamba_s --batch_size 8 --epochs 80
-
-
-
-
+<h2 id="contact">Contact</h2>
+<p>
+  For inquiries, please contact
+  <strong>Md Aynul Islam</strong> (Email: 
+  <a href="mailto:aynulislam1997@mail.ustc.edu.cn">aynulislam1997@mail.ustc.edu.cn</a>).
+</p>
