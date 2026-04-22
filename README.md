@@ -23,7 +23,6 @@ data/
 │ │ ├── ILSVRC2012_val_00000293.JPEG
 │ │ └── ...
 │ └── ... (1000 classes)
-```
 
 ```bash
 <h3>Segmentation Dataset (Stage 1 & Stage 2)</h3> 
@@ -39,6 +38,7 @@ data/
 │ ├── images/
 │ └── masks/
 ```
+
 <h2 id="requirements">Requirements</h2>
 <ul>
   <li>Python 3.9.21</li>
