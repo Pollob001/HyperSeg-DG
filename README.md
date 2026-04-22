@@ -73,15 +73,14 @@ cd HyperSeg-DG
 
 
 <h2 id="stage-1">Stage-I</h2>
-<li><strong>Stage-I</strong>: Pre-trains the WMamba backbone with auxiliary heads
+<strong>Stage-I</strong>: Pre-trains the WMamba backbone with auxiliary heads
 <pre><code>python train_stage1.py</code></pre>
 
 <h2 id="stage-2">Stage-II</h2>
-<li><strong>Stage-II</strong>: End-to-end training with HyperSeg-DG component
+<strong>Stage-II</strong>: End-to-end training with HyperSeg-DG component
 <pre><code>python train.py</code></pre>
 
 <h2 id="test">Test</h2>
-<li><strong>Test</strong>: Evaluate the trained model
 <pre><code>python test.py</code></pre>
 
 
