@@ -32,10 +32,13 @@ cd HyperSeg-DG
 <p>Download the pretrained models from <a href="add_link_kaggle"><code>here</code></a>.</p>
 
 <h2 id="Generate Backbone">Generate Backbone</h2>
-- **WMamba-T** (Tiny): Lightweight backbone for resource-constrained scenarios
-- **WMamba-S** (Small): Balanced performance-efficiency trade-off
-- **WMamba-B** (Base): Maximum accuracy for high-end systems
+<ul>
+<li><strong>WMamba-T</strong>: Lightweight backbone for resource-constrained scenarios.</li>
+<li><strong>WMamba-S</strong>: Balanced performance-efficiency trade-off.</li>
+<li><strong>WMamba-B</strong>: Maximum accuracy for high-end systems.</li>
+</ul>
 <pre><code>python backbobe/train.py</code></pre>
+
 
 <h2 id="stage-1">Stage-I</h2>
  **Stage 1**: Pre-trains the WMamba backbone with auxiliary heads
