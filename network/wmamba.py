@@ -2,13 +2,10 @@ import torch
 import torch.nn as nn
 from pretrained.wmamba import WMamba
 
-class wmamba_backbone(nn.Module):
-    """SwinMamba with exact ResNet50-like interface"""
-    
+class wmamba_backbone(nn.Module):    
     def __init__(self, arch='wmamba_t', pretrained=True, img_size=256, pretrained_path=None, **kwargs):
         super().__init__()
         
-        # Create SwinMamba model
         if arch == 'wmamba_t':
             self.backbone = WMamba(
                 img_size=img_size, num_classes=1000,
@@ -37,11 +34,8 @@ class wmamba_backbone(nn.Module):
             del self.backbone.head
         if hasattr(self.backbone, 'avgpool'):
             del self.backbone.avgpool
-        
-        # Create custom layer0 that handles format conversion
+
         self.layer0 = _SwinMambaLayer0(self.backbone.patch_embed)
-        
-        # Layer access with wrappers
         self.layer1 = _SwinMambaLayerWrapper(self.backbone.layers[0])  # First stage
         self.layer2 = _SwinMambaLayerWrapper(self.backbone.layers[1])  # Second stage  
         self.layer3 = _SwinMambaLayerWrapper(self.backbone.layers[2])  # Third stage
@@ -147,8 +141,6 @@ class _SwinMambaLayerWrapper(nn.Module):
         
         return out_nchw
 
-
-# Convenience functions
 def swinmamba_t(pretrained=True, img_size=256, **kwargs):
     return wmamba_backbone('wmamba_t', pretrained, img_size=img_size, **kwargs)
 
@@ -158,8 +150,6 @@ def swinmamba_s(pretrained=True, img_size=256, **kwargs):
 def swinmamba_b(pretrained=True, img_size=256, **kwargs):
     return wmamba_backbone('wmamba_b', pretrained, img_size=img_size, **kwargs)
 
-
-# WMamba aliases (preferred naming)
 def wmamba_t(pretrained=True, img_size=256, **kwargs):
     return wmamba_backbone('wmamba_t', pretrained, img_size=img_size, **kwargs)
 
