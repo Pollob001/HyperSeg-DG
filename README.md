@@ -63,7 +63,7 @@ cd HyperSeg-DG
 <h2 id="Generated Pretrained Models">Generate Pretrained Models</h2>
 <p>Download the generated backbone pretrained models from <a href="add_link_kaggle"><code>here</code></a>.</p>
 
-<h2 id="Generate Backbone">Generate Backbone</h2>
+<h3 id="Generate Backbone">Generate Backbone</h3>
 <ul>
 <li><strong>WMamba-T</strong>: Lightweight backbone for resource-constrained scenarios.</li>
 <li><strong>WMamba-S</strong>: Balanced performance-efficiency trade-off.</li>
