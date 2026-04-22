@@ -14,7 +14,6 @@
 
 ### Prerequisites
 
-```bash
 # Create conda environment
 conda create -n hyperseg python=3.8
 conda activate hyperseg
@@ -30,7 +29,6 @@ pip install timm einops yacs
 
 ### ImageNet-1K Dataset (Backbone Pre-training)
 
-```bash
 data/
 ├── imagenet/
 │   ├── train/
@@ -83,7 +81,7 @@ python train_stage2.py --backbone wmamba_s --batch_size 8 --epochs 80
 
 
 
-## Acknowledgements
+### Acknowledgements
 
 This project builds upon the following open-source works:
 
