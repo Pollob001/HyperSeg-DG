@@ -27,6 +27,7 @@ data/
 ```
 
 <h3>Segmentation Dataset (Stage 1 & Stage 2)</h3>
+
 ```bash
 data/
 ├── dataset_name/
