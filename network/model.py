@@ -88,8 +88,6 @@ class dilated_conv(nn.Module):
 
 
 """Decouple Layer"""
-
-
 class DecoupleLayer(nn.Module):
     def __init__(self, in_c=1024, out_c=256):
         super(DecoupleLayer, self).__init__()
@@ -117,8 +115,6 @@ class DecoupleLayer(nn.Module):
 
 
 """Auxiliary Head"""
-
-
 class AuxiliaryHead(nn.Module):
     def __init__(self, in_c):
         super(AuxiliaryHead, self).__init__()
@@ -303,19 +299,16 @@ class CDFAPreprocess(nn.Module):
 
 
 class LightweightDynamicRelationModule(nn.Module):
-    """Memory-efficient version with fixed tensor dimensions"""
     def __init__(self, channels, reduction=8, num_scales=2):
         super().__init__()
         self.channels = channels
         self.num_scales = num_scales
         
-        # Fewer dilated convolutions
         self.dilated_convs = nn.ModuleList([
             nn.Conv2d(channels, channels, 3, padding=1*d, dilation=1*d) 
             for d in range(1, num_scales+1)
         ])
         
-        # Simplified attention - FIXED: output proper dimensions
         self.attention_net = nn.Sequential(
             nn.AdaptiveAvgPool2d(1),
             nn.Conv2d(channels, channels // reduction, 1),
@@ -348,19 +341,16 @@ class LightweightDynamicRelationModule(nn.Module):
         return x + self.gamma * fused
 
 class LightweightContextBridge(nn.Module):
-    """Memory-efficient context bridge without heavy attention"""
     def __init__(self, channels):
         super().__init__()
         self.channels = channels
         
-        # Local context only (remove global attention)
         self.local_path = nn.Sequential(
             nn.Conv2d(channels, channels, 3, padding=1, groups=channels),  # Depthwise
             nn.Conv2d(channels, channels, 1),  # Pointwise
             nn.GELU()
         )
         
-        # Global context via simple pooling
         self.global_path = nn.Sequential(
             nn.AdaptiveAvgPool2d(1),
             nn.Conv2d(channels, channels, 1),
@@ -370,36 +360,23 @@ class LightweightContextBridge(nn.Module):
         self.out_proj = nn.Conv2d(channels, channels, 1)
 
     def forward(self, x):
-        # Local context
         local_feat = self.local_path(x)
         
-        # Global context (simple channel attention)
         global_weights = self.global_path(x)
         global_feat = x * global_weights
         
-        # Simple fusion
         fused = local_feat + global_feat
         return self.out_proj(fused) + x
 
 class LightweightHFCBlock(nn.Module):
-    """
-    Lightweight version of HFCBlock with reduced memory usage
-    """
     def __init__(self, channels, expansion=1, num_scales=2):
         super().__init__()
         self.channels = channels
         hidden_dim = channels * expansion
         
-        # Simplified components
         self.input_norm = nn.BatchNorm2d(channels)
-        
-        # Lightweight dynamic relations
         self.dynamic_relations = LightweightDynamicRelationModule(channels, num_scales=num_scales)
-        
-        # Lightweight context bridge
         self.context_bridge = LightweightContextBridge(channels)
-        
-        # Feature enhancement (simplified)
         self.enhancement = nn.Sequential(
             nn.Conv2d(channels, hidden_dim, 1),
             nn.GELU(),
@@ -423,30 +400,13 @@ class LightweightHFCBlock(nn.Module):
         
         return residual + self.gamma * enhanced
 
-
-
-
-# Multi-Relation Hybrid Feature Context Block
-# Multi-Scale Hyper Feature Context Block
-# MR-HFC
-
-
-
-
 class HFCB(nn.Module):
-    """
-    Memory-efficient version of EnhancedHFCBlock
-    """
     def __init__(self, channels, num_modes=3):
         super().__init__()
         self.num_modes = num_modes
-        
-        # Use lightweight blocks
         self.mode_branches = nn.ModuleList([
             LightweightHFCBlock(channels) for _ in range(num_modes)
         ])
-        
-        # Simplified mode interaction (remove heavy attention)
         self.mode_weights = nn.Sequential(
             nn.AdaptiveAvgPool2d(1),
             nn.Conv2d(channels * num_modes, channels // 2, 1),
@@ -462,8 +422,6 @@ class HFCB(nn.Module):
         for i, inp in enumerate(mode_inputs):
             mode_feat = self.mode_branches[i](inp)
             mode_features.append(mode_feat)
-        
-        # Simple weighted fusion (no cross-attention)
         weight_input = torch.cat([F.adaptive_avg_pool2d(f, 1) for f in mode_features], dim=1)
         weights = self.mode_weights(weight_input)
         weights = weights.view(-1, self.num_modes, 1, 1, 1)
@@ -479,8 +437,6 @@ class HyperSegStage2(nn.Module):
 
         self.H = H
         self.W = W
-
-        """ Backbone: SwinMamba Base (matches pretrained model dimensions) """
         backbone = wmamba_b(pretrained=True, pretrained_path=backbone_pretrained_path)
        
         self.layer0 = backbone.layer0  # [batch_size, 128, h/4, w/4]
@@ -517,10 +473,9 @@ class HyperSegStage2(nn.Module):
         """ Auxiliary Head """
         self.aux_head = AuxiliaryHead(128)
 
-        """ Lightweight EnhancedHFCBlock (Memory Efficient) """
+        """ HFCBlock """
         self.up2X = nn.Upsample(scale_factor=2, mode="bilinear", align_corners=True)
         
-        # Use lightweight blocks
         self.enhanced_hfc4 = HFCB(channels=128, num_modes=3)
         self.enhanced_hfc3 = HFCB(channels=128, num_modes=3)
         self.enhanced_hfc2 = HFCB(channels=128, num_modes=3)
@@ -541,18 +496,12 @@ class HyperSegStage2(nn.Module):
         self.output_block = output_block(128, 1)
 
     def forward(self, image):
-        """ Backbone: SwinMamba """
+        """ Backbone: WMamba """
         x0 = image
         x1 = self.layer0(x0)
         x2 = self.layer1(x1)
         x3 = self.layer2(x2)
         x4 = self.layer3(x3)
-
-        # print('x0', x0.shape)
-        # print('x1', x1.shape)
-        # print('x2', x2.shape)
-        # print('x3', x3.shape)
-        # print('x4', x4.shape)
 
         """ Dilated Conv """
         d1 = self.dconv1(x1)
@@ -560,11 +509,6 @@ class HyperSegStage2(nn.Module):
         d3 = self.dconv3(x3)
         d4 = self.dconv4(x4)
         
-        # print('d1', d1.shape)
-        # print('d2', d2.shape)
-        # print('d3', d3.shape)
-        # print('d4', d4.shape)
-
         """ Decouple Layer """
         f_fg, f_bg, f_uc = self.decouple_layer(x4)
 
@@ -587,8 +531,6 @@ class HyperSegStage2(nn.Module):
         f_fg1 = self.preprocess_fg1(f_fg)
         f_bg1 = self.preprocess_bg1(f_bg)
         f_uc1 = self.preprocess_uc1(f_uc)
-        
-        # print("fbg1: ", f_bg1.shape)
 
         # Level 4
         mode_inputs_4 = [f_fg4, f_bg4, f_uc4]
@@ -619,17 +561,11 @@ class HyperSegStage2(nn.Module):
 
         """ Decoder """
         f_small = self.decoder_small(f2, f1)
-        # print('f_small: ', f_small.shape)
-
         f_middle = self.decoder_middle(f3, f2)
-        # print('f_middle: ', f_middle.shape)
-
         f_large = self.decoder_large(f4, f3)
-        # print('f_large: ', f_large.shape)
 
         """ Output Block """
         mask = self.output_block(f_small, f_middle, f_large)
-        # print('mask: ', mask.shape)
 
         return mask, mask_fg, mask_bg, mask_uc
 
