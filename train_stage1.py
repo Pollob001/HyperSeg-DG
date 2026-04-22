@@ -10,14 +10,8 @@ from torch.utils.data import DataLoader
 from utils.utils import print_and_save, shuffling, epoch_time
 from network.model_stage1 import HyperSegStage1
 from utils.metrics import DiceBCELoss
-# from utils.metrics import precision, recall, F2, dice_score, jac_score
-#
 torch.backends.cudnn.benchmark = True
 torch.backends.cudnn.deterministic = False
-
-
-
-
 
 from utils.run_engine_stage1 import load_data, train, evaluate, DATASET
 def my_seeding(seed):
@@ -26,15 +20,6 @@ def my_seeding(seed):
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
-
-
-
-
-
-
-# dataname: Kvasir_SEG , sessile-main-Kvasir-SEG , BUSI , GlaS_No aug, CVC ,ISIC18,ISIC17,ISIC16
-
-
 
 if __name__ == "__main__":
     model_name = "HyperSeg_DG_stage1"
@@ -86,7 +71,6 @@ if __name__ == "__main__":
     print_and_save(train_log_path, hyperparameters_str)
 
     """ Data augmentation: Transforms """
-
     transform = A.Compose([
         A.Rotate(limit=90, p=0.5),
         A.HorizontalFlip(p=0.5),
@@ -95,7 +79,6 @@ if __name__ == "__main__":
     ])
 
     """ Dataset """
-    # Using full path to load data
     (train_x, train_y), (valid_x, valid_y) = load_data(data_path, val_name)
     train_x, train_y = shuffling(train_x, train_y)
     data_str = f"Dataset Size:\nTrain: {len(train_x)} - Valid: {len(valid_x)}\n"
