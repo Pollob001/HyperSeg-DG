@@ -144,9 +144,7 @@ class EnhancedFusionHead(nn.Module):
 class HyperSegStage1(nn.Module):
     def __init__(self, pretrained_img_size=256, backbone_pretrained_path=None):
         super().__init__()
-
-        """ Backbone: SwinMamba Base (matches pretrained model dimensions) """
-        # Use img_size=256 to match actual input image size (pretrained was 224, but we use 256)
+        
         backbone = wmamba(
             pretrained=True,
             img_size=pretrained_img_size,
@@ -156,12 +154,9 @@ class HyperSegStage1(nn.Module):
         self.layer1 = backbone.layer1  # [batch_size, 256, h/8, w/8]
         self.layer2 = backbone.layer2  # [batch_size, 512, h/16, w/16]
         self.layer3 = backbone.layer3  # [batch_size, 1024, h/32, w/32]
-
-        """ Enhanced Fusion Head with Progressive Decoder """
         self.head = EnhancedFusionHead(128, 256, 512, 1024, 1)
 
     def forward(self, image):
-        """ Backbone: SwinMamba """
         x0 = image
         x1 = self.layer0(x0)  ## [-1, 128, h/4, w/4]
         x2 = self.layer1(x1)  ## [-1, 256, h/8, w/8]
