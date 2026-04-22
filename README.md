@@ -26,9 +26,7 @@ data/
 │       └── ... (1000 classes)
 
 
-
-### Segmentation Dataset (Stage 1 & Stage 2)
-
+<h3>Segmentation Dataset (Stage 1 & Stage 2)</h3> 
 data/
 ├── dataset_name/
 │   ├── train/
@@ -40,7 +38,7 @@ data/
 │   └── test/
 │       ├── images/
 │       └── masks/
-
+```bash
 
 
 <h2 id="requirements">Requirements</h2>
