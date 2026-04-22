@@ -26,7 +26,7 @@ data/
 │ └── ... (1000 classes)
 ```
 
-<h3>Segmentation Dataset (Stage 1 & Stage 2)</h3>
+<h3>Segmentation Dataset (Stage-I & Stage-II)</h3>
 
 ```bash
 data/
@@ -73,11 +73,11 @@ cd HyperSeg-DG
 
 
 <h2 id="stage-1">Stage-I</h2>
- **Stage 1**: Pre-trains the WMamba backbone with auxiliary heads
+<li><strong>Stage-I</strong>: Pre-trains the WMamba backbone with auxiliary heads
 <pre><code>python train_stage1.py</code></pre>
 
 <h2 id="stage-2">Stage-II</h2>
-**Stage 2**: End-to-end training with HyperSeg-DG component
+<li><strong>Stage-II</strong>: End-to-end training with HyperSeg-DG component
 <pre><code>python train.py</code></pre>
 
 <h2 id="test">Test</h2>
