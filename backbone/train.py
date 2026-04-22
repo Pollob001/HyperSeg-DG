@@ -73,12 +73,12 @@ def main():
     best_acc = -float('inf')
     epochs = 300
 
-    model_name = "swinmamba_s"
-    save_path = os.path.join("/ghome/alif/MedMamba224x224/swinmamba_s", "{}Net.pth".format(model_name))
+    model_name = "wmamba_s"
+    save_path = os.path.join("/ghome/alif/MedMamba224x224/wmamba_s", "{}Net.pth".format(model_name))
     train_steps = len(train_loader)
 
     # Open a text file to save epoch information
-    log_file = open('/ghome/alif/MedMamba224x224/swinmamba_s/training_log.txt', 'w')
+    log_file = open('/ghome/alif/MedMamba224x224/wmamba_s/training_log.txt', 'w')
     log_file.write("Epoch\tTrain_Loss\tVal_Accuracy\n")  # Write header to log file
 
     for epoch in range(epochs):
