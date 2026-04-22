@@ -81,6 +81,7 @@ cd HyperSeg-DG
 <pre><code>python train.py</code></pre>
 
 <h2 id="test">Test</h2>
+<li><strong>Test</strong>: Evaluate the trained model
 <pre><code>python test.py</code></pre>
 
 
