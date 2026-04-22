@@ -60,8 +60,8 @@ data/
 cd HyperSeg-DG
 </code></pre>
 
-<h2 id="Generate Pretrained Models">Generate Pretrained Models</h2>
-<p>Download the pretrained models from <a href="add_link_kaggle"><code>here</code></a>.</p>
+<h2 id="Generated Pretrained Models">Generate Pretrained Models</h2>
+<p>Download the generated backbone pretrained models from <a href="add_link_kaggle"><code>here</code></a>.</p>
 
 <h2 id="Generate Backbone">Generate Backbone</h2>
 <ul>
