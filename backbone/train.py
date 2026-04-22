@@ -23,7 +23,7 @@ def main():
                                    transforms.ToTensor(),
                                    transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])}
 
-    train_dataset = datasets.ImageFolder(root="/gdata1/alif/ImageNet/train",
+    train_dataset = datasets.ImageFolder(root="/datasets/ImageNet-1K/train",
                                          transform=data_transform["train"])
     train_num = len(train_dataset)
 
@@ -33,7 +33,7 @@ def main():
 
     # Write the dictionary to JSON file
     json_str = json.dumps(cla_dict, indent=4)
-    with open('/ghome/alif/MedMamba224x224/class_indices.json', 'w') as json_file:
+    with open('.HyperSeg-DG/backbone/class_indices.json', 'w') as json_file:
         json_file.write(json_str)
 
     batch_size = 256
@@ -44,7 +44,7 @@ def main():
                                                batch_size=batch_size, shuffle=True,
                                                num_workers=nw)
 
-    validate_dataset = datasets.ImageFolder(root="/gdata1/alif/ImageNet/val",
+    validate_dataset = datasets.ImageFolder(root="/datasets/ImageNet-1K/val",
                                             transform=data_transform["val"])
     val_num = len(validate_dataset)
     validate_loader = torch.utils.data.DataLoader(validate_dataset,
@@ -74,11 +74,11 @@ def main():
     epochs = 300
 
     model_name = "wmamba_s"
-    save_path = os.path.join("/ghome/alif/MedMamba224x224/wmamba_s", "{}Net.pth".format(model_name))
+    save_path = os.path.join(".HyperSeg-DG/pretrained/", "{}.pth".format(model_name))
     train_steps = len(train_loader)
 
     # Open a text file to save epoch information
-    log_file = open('/ghome/alif/MedMamba224x224/wmamba_s/training_log.txt', 'w')
+    log_file = open('.HyperSeg-DG/pretrained/training_log.txt', 'w')
     log_file.write("Epoch\tTrain_Loss\tVal_Accuracy\n")  # Write header to log file
 
     for epoch in range(epochs):
