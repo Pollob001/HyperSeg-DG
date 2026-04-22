@@ -39,12 +39,24 @@ cd HyperSeg-DG
 <h2 id="test">Test</h2>
 <pre><code>python test.py</code></pre>
 
+
+<h2 id="Acknowledgements">Acknowledgements</h2>
+<p>
+  This project builds upon the following open-source works:
+  <strong>ConDSeg</strong> - https://github.com/Mengqi-Lei/ConDSeg.
+  <strong>RAM-DSIR</strong> - https://github.com/emma-sjwang/Dofe.
+  <strong>Md Aynul Islam</strong> - https://github.com/zzzqzhou/RAM-DSIR.
+  We thank the authors for their valuable contributions.
+</p>
+
 <h2 id="contact">Contact</h2>
 <p>
   For inquiries, please contact
   <strong>Md Aynul Islam</strong> (Email: 
   <a href="mailto:aynulislam1997@mail.ustc.edu.cn">aynulislam1997@mail.ustc.edu.cn</a>).
 </p>
+
+
 
 
 
@@ -138,12 +150,4 @@ python train_stage2.py --backbone wmamba_s --batch_size 8 --epochs 80
 
 
 
-### Acknowledgements
 
-This project builds upon the following open-source works:
-
-- **ConDSeg** - https://github.com/Mengqi-Lei/ConDSeg
-- **Dofe** - https://github.com/emma-sjwang/Dofe  
-- **RAM-DSIR** - https://github.com/zzzqzhou/RAM-DSIR
-
-We thank the authors for their valuable contributions.
