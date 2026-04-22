@@ -48,7 +48,6 @@ data/
 
 ### Segmentation Dataset (Stage 1 & Stage 2)
 
-```bash
 data/
 ├── dataset_name/
 │   ├── train/
