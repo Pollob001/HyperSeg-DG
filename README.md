@@ -9,6 +9,7 @@
 <h2 id="dataset">Dataset Preparation</h2>
 
 <h3 id="ImageNet-1K">ImageNet-1K Dataset (Backbone Pre-training)</h3>
+
 ```bash
 data/
 ├── imagenet/
@@ -23,9 +24,10 @@ data/
 │ │ ├── ILSVRC2012_val_00000293.JPEG
 │ │ └── ...
 │ └── ... (1000 classes)
-
 ```
-<h3>Segmentation Dataset (Stage 1 & Stage 2)</h3> 
+
+<h3>Segmentation Dataset (Stage 1 & Stage 2)</h3>
+```
 data/
 ├── dataset_name/
 │ ├── train/
