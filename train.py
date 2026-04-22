@@ -6,12 +6,10 @@ import numpy as np
 import albumentations as A
 import torch
 from torch.utils.data import DataLoader
-
 from utils.utils import print_and_save, shuffling, epoch_time
 from network.model import HyperSegStage2
 from utils.metrics import DiceBCELoss
 
-#
 torch.backends.cudnn.benchmark = True
 torch.backends.cudnn.deterministic = False
 
@@ -24,9 +22,6 @@ def my_seeding(seed):
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
-
-
-# dataname: Kvasir_SEG , sessile-main-Kvasir-SEG , BUSI , GlaS_No aug, CVC ,ISIC18,ISIC17,
 
 if __name__ == "__main__":
     model_name = "HyperSeg_DG"
