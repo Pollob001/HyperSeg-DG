@@ -82,7 +82,10 @@ cd HyperSeg-DG
 
 <h2 id="test">Test</h2>
 <pre><code>python test.py</code></pre>
+<h2 id="pretrained-models-and-checkpoints">Pretrained Models and Checkpoints</h2>
+<strong>Pretrained Models and Checkpoints</strong>: Download the pretrained model and checkpoints for all 10 datasets from the following Google Drive link:
 
+<pre><code>https://drive.google.com/drive/folders/1AqPjQy2p16ad1tnCZC8NcnKL_ol28Qvg?usp=sharing</code></pre>
 
 <h2 id="Acknowledgements">Acknowledgements</h2>
 <p>
